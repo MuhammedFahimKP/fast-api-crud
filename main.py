@@ -1,18 +1,20 @@
 from fastapi import FastAPI
+from fastapi.params import Body
+from db import get_all_posts,creat_new_post
+from schema.serializer import PostCreateSerailizer
+
 
 app = FastAPI()
 
+@app.get("/")
+def hello():
+    return get_all_posts()
 
-@app.get('/')
-def index() -> dict:
-    return  {
-        "user":{
-            "name":"hai"
-        }
-    }
+
+@app.post("/")
+def hia(payload:PostCreateSerailizer):
+    return creat_new_post(payload.dict())
     
-@app.get('/about/')    
-def about() -> dict:
-    return {
-        'data':'about page'
-    }    
+    
+
+print(__name__)
